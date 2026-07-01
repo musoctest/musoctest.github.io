@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Music Society, BITS Goa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Saira:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050505;
+      --panel: rgba(18, 18, 20, 0.72);
+      --panel-solid: #101013;
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.68);
+      --dim: rgba(255, 255, 255, 0.42);
+      --line: rgba(255, 255, 255, 0.14);
+      --blue: #5149ff;
+      --orange: #f3a52d;
+      --violet: #9b5de5;
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-pill: 999px;
+      --font: 'Saira', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      font-family: var(--font);
+      background:
+        radial-gradient(circle at 18% 8%, rgba(81, 73, 255, 0.16), transparent 26rem),
+        radial-gradient(circle at 86% 28%, rgba(243, 165, 45, 0.14), transparent 28rem),
+        linear-gradient(180deg, #020202 0%, #090909 48%, #050505 100%);
+    }
+
+    a { color: inherit; }
+    img, video { max-width: 100%; }
+
+    .page-shell {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 18px clamp(18px, 5vw, 72px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      background: rgba(5, 5, 5, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.36);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      text-decoration: none;
+      min-width: 260px;
+    }
+
+    .brand-mark {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.06;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .brand-title strong {
+      font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+      font-weight: 900;
+    }
+
+    .brand-title span {
+      margin-top: 4px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 400;
+      letter-spacing: 0.14em;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 16px;
+      border-radius: var(--radius-pill);
+      color: rgba(255, 255, 255, 0.76);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.84rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, var(--blue), var(--orange));
+      color: #fff;
+      box-shadow: 0 14px 42px rgba(81, 73, 255, 0.24), 0 8px 28px rgba(243, 165, 45, 0.16);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .header-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 48px rgba(81, 73, 255, 0.32), 0 12px 36px rgba(243, 165, 45, 0.24);
+    }
+
+    .hero-section {
+      width: 100%;
+      height: calc(100vh - 105px);
+      min-height: 560px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .concert-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .section {
+      position: relative;
+      z-index: 2;
+      padding: clamp(84px, 10vw, 150px) clamp(18px, 8vw, 110px);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+
+    .section::after {
+      content: '';
+      position: absolute;
+      inset: auto clamp(18px, 8vw, 110px) 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      pointer-events: none;
+    }
+
+    .intro-section {
+      min-height: 74vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .intro-copy-block {
+      width: min(100%, 980px);
+      display: grid;
+      gap: 22px;
+    }
+
+    .section-title {
+      max-width: 920px;
+      font-size: clamp(3rem, 8vw, 7.8rem);
+      line-height: 0.92;
+      text-transform: uppercase;
+      letter-spacing: -0.065em;
+      font-weight: 900;
+      text-wrap: balance;
+    }
+
+    .section-copy {
+      max-width: 780px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: clamp(1.04rem, 1.6vw, 1.3rem);
+      font-weight: 400;
+    }
+
+    .showcase-section {
+      overflow: hidden;
+      padding-top: clamp(72px, 8vw, 120px);
+    }
+
+    .showcase-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(42px, 7vw, 86px);
+      margin-bottom: clamp(110px, 12vw, 178px);
+      position: relative;
+      z-index: 5;
+    }
+
+    .showcase-row:last-child {
+      margin-bottom: 24px;
+    }
+
+    .showcase-row.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .showcase-text {
+      flex: 1;
+      font-size: clamp(2.7rem, 6vw, 6.7rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      color: var(--text);
+      cursor: default;
+      position: relative;
+      text-wrap: balance;
+    }
+
+    .showcase-text::after {
+      content: '';
+      display: block;
+      height: 5px;
+      background: linear-gradient(90deg, #fff, var(--orange), var(--blue));
+      width: 96px;
+      margin-top: 28px;
+      border-radius: 999px;
+      transition: width 0.48s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+      opacity: 0.9;
+    }
+
+    .showcase-row:hover .showcase-text::after {
+      width: min(100%, 460px);
+      opacity: 1;
+    }
+
+    .showcase-row:not(.reverse) .showcase-text { text-align: left; }
+    .showcase-row.reverse .showcase-text { text-align: right; }
+    .showcase-row.reverse .showcase-text::after { margin-left: auto; }
+
+    .gradient-word {
+      background: linear-gradient(100deg, #fff 0%, var(--orange) 35%, var(--blue) 86%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .showcase-image-wrapper {
+      flex: 1;
+      max-width: 45%;
+      position: relative;
+    }
+
+    .showcase-image-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: 12% -6% -5% 14%;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(81,73,255,0.45), rgba(243,165,45,0.42));
+      filter: blur(24px);
+      opacity: 0.42;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .showcase-row:hover .showcase-image-wrapper::before {
+      opacity: 0.68;
+      transform: translate(6px, 8px) scale(1.02);
+    }
+
+    .showcase-image-container {
+      width: 100%;
+      border-radius: 30px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: #0c0c0d;
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 2;
+      transform: translateZ(0);
+    }
+
+    .showcase-img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.05) brightness(0.95) saturate(1.03);
+      transition: transform 0.55s cubic-bezier(0.25, 1, 0.5, 1), filter 0.35s ease;
+    }
+
+    .showcase-row:hover .showcase-img {
+      transform: scale(1.04);
+      filter: contrast(1.08) brightness(1) saturate(1.08);
+    }
+
+    .bg-graphic {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.1;
+    }
+
+    .graphic-star-1 {
+      top: 2%;
+      left: 1%;
+      width: 320px;
+      fill: var(--blue);
+    }
+
+    .graphic-waves {
+      top: 38%;
+      right: -8%;
+      width: 520px;
+      stroke: var(--orange);
+    }
+
+    .graphic-leaf-1 {
+      top: 18%;
+      left: 45%;
+      width: 180px;
+      fill: var(--orange);
+      transform: rotate(25deg);
+    }
+
+    .graphic-leaf-2 {
+      bottom: 31%;
+      left: 3%;
+      width: 220px;
+      fill: var(--blue);
+      transform: rotate(-40deg);
+    }
+
+    .graphic-star-2 {
+      bottom: 5%;
+      right: 5%;
+      width: 280px;
+      fill: var(--orange);
+    }
+
+    .section-divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.24), transparent);
+      margin: 0 auto;
+      width: min(84vw, 1180px);
+      border-radius: 2px;
+    }
+
+    .bottom-nav-section {
+      padding: 72px clamp(18px, 8vw, 110px) 80px;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-size: 44px 44px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      gap: 32px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .bottom-left-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+    }
+
+    .bottom-logo-link {
+      display: block;
+      width: 82px;
+      height: auto;
+    }
+
+    .bottom-logo-link img { width: 100%; height: auto; object-fit: contain; filter: brightness(0) invert(1); }
+
+    .bottom-brand-text {
+      font-size: 1.02rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      opacity: 0.88;
+    }
+
+    .bottom-middle-socials {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 16px;
+      width: 260px;
+      padding: 14px 28px;
+      background-color: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-pill);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 0.96rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .social-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .social-btn:hover {
+      background-color: rgba(255,255,255,0.075);
+      border-color: rgba(255, 255, 255, 0.28);
+      transform: translateY(-2px);
+    }
+
+    .bottom-right-actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      padding: 15px 42px;
+      font-family: var(--font);
+      font-size: 1.05rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      color: #fff;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, var(--blue) 0%, var(--orange) 100%);
+      box-shadow: 0 14px 42px rgba(81, 73, 255, 0.22), 0 8px 28px rgba(243, 165, 45, 0.14);
+      transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 48px rgba(81, 73, 255, 0.3), 0 12px 36px rgba(243, 165, 45, 0.24);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1060px) {
+      .site-header {
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .main-nav {
+        order: 3;
+        width: 100%;
+      }
+
+      .nav-link {
+        flex: 1;
+      }
+
+      .showcase-image-wrapper { max-width: 50%; }
+    }
+
+    @media (max-width: 780px) {
+      .site-header {
+        padding: 16px 18px;
+      }
+
+      .brand {
+        min-width: 0;
+        width: 100%;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+      }
+
+      .brand-mark img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .brand-title strong { font-size: 1.04rem; }
+      .brand-title span { font-size: 0.68rem; }
+
+      .header-cta {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .main-nav {
+        overflow-x: auto;
+        justify-content: flex-start;
+      }
+
+      .nav-link {
+        min-width: max-content;
+        padding-inline: 14px;
+      }
+
+      .hero-section {
+        height: 72vh;
+        min-height: 420px;
+      }
+
+      .intro-section {
+        min-height: auto;
+      }
+
+      .showcase-row,
+      .showcase-row.reverse {
+        flex-direction: column;
+        text-align: center;
+        gap: 48px;
+        margin-bottom: 112px;
+      }
+
+      .showcase-row:not(.reverse) .showcase-text,
+      .showcase-row.reverse .showcase-text {
+        text-align: center;
+      }
+
+      .showcase-text::after {
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      .showcase-image-wrapper {
+        max-width: min(92vw, 520px);
+        width: 100%;
+      }
+
+      .bottom-nav-section {
+        grid-template-columns: 1fr;
+        gap: 38px;
+        text-align: center;
+      }
+
+      .bottom-left-brand {
+        align-items: center;
+      }
+
+      .bottom-right-actions {
+        justify-content: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a href="index.html" class="brand" aria-label="The Music Society home">
+        <span class="brand-mark"><img src="assets/musoc-logo.png" alt="MuSoc logo" /></span>
+        <span class="brand-title"><strong>The Music Society</strong><span>BITS Pilani, Goa Campus</span></span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="about.html" class="nav-link">About</a>
+        <a href="our-work.html" class="nav-link">Our Work</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <a href="https://www.instagram.com/musoc_bpgc/" target="_blank" rel="noreferrer" class="header-cta">Follow Us</a>
+    </header>
+
+    <main id="home" class="hero-section" aria-label="MuSoc concert video">
+      <video class="concert-video" autoplay loop muted playsinline preload="metadata">
+        <source src="assets/musoc-loop.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </main>
+
+    <section class="section intro-section reveal">
+      <div class="intro-copy-block">
+        <h1 class="section-title">Where Goa finds its sound.</h1>
+        <p class="section-copy">From stage performances and intercollegiate competitions, MuSoc is the campus home for musicians, listeners, and everyone who loves the rush of a live set.</p>
+      </div>
+    </section>
+
+    <section class="section showcase-section">
+      <svg class="bg-graphic graphic-star-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M50 0 C50 35, 35 50, 0 50 C35 50, 50 65, 50 100 C50 65, 65 50, 100 50 C65 35, 50 0, 50 0 Z"/>
+      </svg>
+      <svg class="bg-graphic graphic-leaf-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M17 2s-.5 1-1.5 2.5S13.5 8 12 10c-1.5-2-2.5-4.5-3.5-6S7 2 7 2s-.5 2 1 4.5 4 5.5 4 5.5v8h2v-8s2.5-3 4-5.5S17 2 17 2z"/>
+      </svg>
+      <svg class="bg-graphic graphic-waves" viewBox="0 0 100 100" fill="none" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M0,50 Q25,30 50,50 T100,50" />
+        <path d="M0,60 Q25,40 50,60 T100,60" />
+        <path d="M0,70 Q25,50 50,70 T100,70" />
+      </svg>
+      <svg class="bg-graphic graphic-leaf-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M2 22c0 0 4.5-1 8.5-5.5S15 9.5 16 7c-2.5 1-6 2-10.5 6S2 22 2 22zm14.5-15c.5-.5 1-1.5 1-2.5s-1-2-2-2-2 .5-2.5 1c1 0 2.5 1 2.5 2.5s-1 1.5-1 1.5z"/>
+      </svg>
+      <svg class="bg-graphic graphic-star-2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M50 0 C50 35, 35 50, 0 50 C35 50, 50 65, 50 100 C50 65, 65 50, 100 50 C65 35, 50 0, 50 0 Z"/>
+      </svg>
+
+      <div class="showcase-row reveal">
+        <h2 class="showcase-text">Curating <br><span class="gradient-word">Elevated</span><br> Experiences</h2>
+        <div class="showcase-image-wrapper">
+          <div class="showcase-image-container">
+            <img src="assets/vocalist.jpg" alt="Vocalist performing on stage" class="showcase-img" />
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-row reverse reveal">
+        <h2 class="showcase-text">Your Favourite <span class="gradient-word">Genres</span>.<br>Your Favourite <span class="gradient-word">Songs</span>.</h2>
+        <div class="showcase-image-wrapper">
+          <div class="showcase-image-container">
+            <img src="assets/violinist.jpg" alt="Violinist performing under stage lighting" class="showcase-img" />
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-row reveal">
+        <h2 class="showcase-text">The Absolute <span class="gradient-word">Best</span>.<br>Every time.</h2>
+        <div class="showcase-image-wrapper">
+          <div class="showcase-image-container">
+            <img src="assets/guitarist.jpg" alt="Guitarist performing on stage" class="showcase-img" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section class="bottom-nav-section">
+      <div class="bottom-left-brand">
+        <a href="index.html" class="bottom-logo-link" aria-label="Back to home">
+          <img src="assets/musoc-logo.png" alt="MuSoc logo" />
+        </a>
+        <p class="bottom-brand-text">The Music Society, BITS Goa</p>
+      </div>
+
+      <div class="bottom-middle-socials">
+        <a href="https://www.youtube.com/@MuSocBITSGoa" target="_blank" rel="noreferrer" class="social-btn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          Our Channel
+        </a>
+        <a href="https://www.instagram.com/musoc_bpgc/" target="_blank" rel="noreferrer" class="social-btn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          Socials
+        </a>
+      </div>
+
+      <div class="bottom-right-actions">
+        <a href="contact.html" class="contact-btn">Contact Us</a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealEls.forEach((el) => observer.observe(el));
+    } else {
+      revealEls.forEach((el) => el.classList.add('in-view'));
+    }
+  </script>
+</body>
+</html>
